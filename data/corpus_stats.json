@@ -1,0 +1,17 @@
+{
+  "docs": 189,
+  "total_chars": 2201570,
+  "est_tokens_low": 1100785,
+  "est_tokens_high": 2201570,
+  "context_window": 1000000,
+  "link_edges": 9543,
+  "links_per_doc_median": 60,
+  "zero_link_docs": [
+    "시간 복잡도",
+    "낱말",
+    "자기회귀모형"
+  ],
+  "no_inbound_docs": [],
+  "per_researcher_budget_chars": 120000,
+  "share_one_researcher_can_read": 0.055
+}

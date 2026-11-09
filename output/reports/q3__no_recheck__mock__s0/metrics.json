@@ -1,0 +1,79 @@
+{
+ "run": "q3__no_recheck__mock__s0",
+ "splitter_version": "2e369f1c13",
+ "question_id": 3,
+ "arm": "no_recheck",
+ "seed": 0,
+ "backend": "mock",
+ "signals": {
+  "citation_rate": 0.4166666666666667,
+  "lexical_support": 1.0,
+  "unique_cited": 15,
+  "read_to_cite": 1.0,
+  "seed_overlap": 0.0,
+  "read_overlap": 0.0,
+  "text_overlap": 1.0,
+  "budget_use_min": 0.07875,
+  "orphan_read_rate": 0.0,
+  "recheck_new_cites": 0,
+  "isolation_ratio": 0.06771402504436401
+ },
+ "alarms": {
+  "cite_not_in_corpus": 0,
+  "cite_not_read": 0,
+  "invalid_assignment": 0,
+  "coordinator_raw_leak": 0,
+  "synth_new_cites": 0,
+  "unsubmitted": 0,
+  "model_mismatch": 0,
+  "switch_audit": 0
+ },
+ "audit": [],
+ "budget": [
+  {
+   "agent": "s1-r1",
+   "budget": 66666,
+   "used": 16183,
+   "context_limited": false,
+   "nudges": 2
+  },
+  {
+   "agent": "s2-r1",
+   "budget": 133333,
+   "used": 17015,
+   "context_limited": false,
+   "nudges": 2
+  },
+  {
+   "agent": "s3-r1",
+   "budget": 200000,
+   "used": 15750,
+   "context_limited": false,
+   "nudges": 2
+  },
+  {
+   "agent": "s4-r1",
+   "budget": 66666,
+   "used": 18000,
+   "context_limited": false,
+   "nudges": 2
+  },
+  {
+   "agent": "s5-r1",
+   "budget": 133333,
+   "used": 18000,
+   "context_limited": false,
+   "nudges": 2
+  }
+ ],
+ "tokens": {
+  "calls": 37,
+  "input_tokens": 225272,
+  "output_tokens": 7400,
+  "served_models": [
+   "claude-opus-5-5"
+  ]
+ },
+ "elapsed_s": 0.1,
+ "alarms_ok": true
+}

@@ -1,0 +1,87 @@
+{
+ "run": "q3__single__mock__s0",
+ "question": {
+  "id": 3,
+  "kind": "scatter",
+  "title": "생성 모델 계열의 갈래",
+  "question": "생성형 인공지능의 모델 계열(자기회귀 언어 모델, 생성적 적대 신경망, 확산 모델, 음성 합성, 텍스트-비디오 모델)은 각각 어떤 문제를 풀려고 지금 모양이 되었고, 서로 무엇을 대안으로 밀어냈는가?",
+  "why": "계열마다 다른 문서(GAN·확산 모델·대형 언어 모델·음성 합성·텍스트-비디오)에 흩어져 있어 갈래별로 나누면 서로 다른 자료를 읽는다."
+ },
+ "elapsed_s": 0.0,
+ "plan": [],
+ "plan_info": {},
+ "agents": [
+  {
+   "turns": 7,
+   "read_log": [
+    {
+     "doc_id": "인공 신경망",
+     "offset": 0,
+     "n": 6000
+    },
+    {
+     "doc_id": "딥 러닝",
+     "offset": 0,
+     "n": 6000
+    },
+    {
+     "doc_id": "신경장",
+     "offset": 0,
+     "n": 4372
+    }
+   ],
+   "read_ids": [
+    "딥 러닝",
+    "신경장",
+    "인공 신경망"
+   ],
+   "search_log": [
+    "모델 학습 신경망"
+   ],
+   "budget": 900000,
+   "used": 16372,
+   "submitted": {
+    "markdown": "모의 원고의 첫 문장이다 [D:딥 러닝] [D:신경장] [D:인공 신경망].\n\n둘째 문장에는 인용이 없다.",
+    "sufficient": true,
+    "gaps": []
+   },
+   "nudges": 2,
+   "context_limited": false,
+   "chars_seen": 19005,
+   "agent_id": "single",
+   "section": "all",
+   "round": 1,
+   "prompt": "## 질문\n생성형 인공지능의 모델 계열(자기회귀 언어 모델, 생성적 적대 신경망, 확산 모델, 음성 합성, 텍스트-비디오 모델)은 각각 어떤 문제를 풀려고 지금 모양이 되었고, 서로 무엇을 대안으로 밀어냈는가?\n\n## 목표\n약 5개 절의 장문 보고서. 절은 내용 단위로 나눈다.\n\n## 예산\n읽기 900,000자, 도구 라운드 최대 180회. 마지막에 submit_section(markdown=보고서 전체)."
+  }
+ ],
+ "drafts": {},
+ "decisions": [],
+ "events": [
+  {
+   "event": "single_dispatch",
+   "budget": 900000,
+   "turns": 180
+  }
+ ],
+ "synth": {},
+ "isolation": {
+  "coordinator_chars": 0,
+  "coordinator_by_kind": {},
+  "subagent_chars": {
+   "single": 19005
+  },
+  "subagent_chars_total": 19005,
+  "snippets_checked": 3,
+  "coordinator_raw_leak": 0,
+  "manuscript_verbatim": 0
+ },
+ "corpus": {
+  "docs": 189,
+  "chars": 2201570,
+  "orphans": [
+   "시간 복잡도",
+   "낱말",
+   "자기회귀모형"
+  ]
+ }
+}

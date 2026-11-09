@@ -1,0 +1,6 @@
+anthropic>=2.6
+langgraph>=1.2
+python-dotenv>=1.0
+requests>=2.31
+streamlit>=1.40
+pandas>=2.0

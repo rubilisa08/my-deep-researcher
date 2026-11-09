@@ -1,0 +1,7 @@
+# 비밀 — API 키는 저장소에 올리지 않는다
+.env
+# 수집 캐시 · 파이썬 부산물
+.kowiki_cache/
+__pycache__/
+*.pyc
+.streamlit/secrets.toml

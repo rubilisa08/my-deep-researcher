@@ -1,0 +1,855 @@
+{
+ "q3__mock": {
+  "question_id": 3,
+  "arms": [
+   "single",
+   "no_peer",
+   "no_recheck",
+   "format_split",
+   "concat",
+   "no_orphan",
+   "full"
+  ],
+  "trials": 2,
+  "splitter_version": "2e369f1c13",
+  "summary": {
+   "single": {
+    "runs": [
+     "q3__single__mock__s0",
+     "q3__single__mock__s1"
+    ],
+    "excluded": [],
+    "alarms": {
+     "q3__single__mock__s0": {},
+     "q3__single__mock__s1": {}
+    },
+    "budget_use": {
+     "q3__single__mock__s0": [
+      0.02
+     ],
+     "q3__single__mock__s1": [
+      0.02
+     ]
+    },
+    "context_limited": {
+     "q3__single__mock__s0": false,
+     "q3__single__mock__s1": false
+    },
+    "signals": {
+     "citation_rate": {
+      "values": [
+       0.5,
+       0.5
+      ],
+      "mean": 0.5,
+      "sd": 0.0
+     },
+     "lexical_support": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "unique_cited": {
+      "values": [
+       3,
+       3
+      ],
+      "mean": 3,
+      "sd": 0.0
+     },
+     "read_to_cite": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "seed_overlap": {
+      "values": [],
+      "mean": null,
+      "sd": null
+     },
+     "read_overlap": {
+      "values": [],
+      "mean": null,
+      "sd": null
+     },
+     "text_overlap": {
+      "values": [],
+      "mean": null,
+      "sd": null
+     },
+     "budget_use_min": {
+      "values": [
+       0.018191111111111113,
+       0.018191111111111113
+      ],
+      "mean": 0.018191111111111113,
+      "sd": 0.0
+     },
+     "orphan_read_rate": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "recheck_new_cites": {
+      "values": [],
+      "mean": null,
+      "sd": null
+     },
+     "isolation_ratio": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     }
+    }
+   },
+   "no_peer": {
+    "runs": [
+     "q3__no_peer__mock__s0",
+     "q3__no_peer__mock__s1"
+    ],
+    "excluded": [],
+    "alarms": {
+     "q3__no_peer__mock__s0": {},
+     "q3__no_peer__mock__s1": {}
+    },
+    "budget_use": {
+     "q3__no_peer__mock__s0": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ],
+     "q3__no_peer__mock__s1": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ]
+    },
+    "context_limited": {
+     "q3__no_peer__mock__s0": false,
+     "q3__no_peer__mock__s1": false
+    },
+    "signals": {
+     "citation_rate": {
+      "values": [
+       0.4166666666666667,
+       0.4166666666666667
+      ],
+      "mean": 0.4166666666666667,
+      "sd": 0.0
+     },
+     "lexical_support": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "unique_cited": {
+      "values": [
+       15,
+       15
+      ],
+      "mean": 15,
+      "sd": 0.0
+     },
+     "read_to_cite": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "seed_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "read_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "text_overlap": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "budget_use_min": {
+      "values": [
+       0.07875,
+       0.07875
+      ],
+      "mean": 0.07875,
+      "sd": 0.0
+     },
+     "orphan_read_rate": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "recheck_new_cites": {
+      "values": [
+       0,
+       0
+      ],
+      "mean": 0,
+      "sd": 0.0
+     },
+     "isolation_ratio": {
+      "values": [
+       0.05724456498707463,
+       0.05724456498707463
+      ],
+      "mean": 0.05724456498707463,
+      "sd": 0.0
+     }
+    }
+   },
+   "no_recheck": {
+    "runs": [
+     "q3__no_recheck__mock__s0",
+     "q3__no_recheck__mock__s1"
+    ],
+    "excluded": [],
+    "alarms": {
+     "q3__no_recheck__mock__s0": {},
+     "q3__no_recheck__mock__s1": {}
+    },
+    "budget_use": {
+     "q3__no_recheck__mock__s0": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14
+     ],
+     "q3__no_recheck__mock__s1": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14
+     ]
+    },
+    "context_limited": {
+     "q3__no_recheck__mock__s0": false,
+     "q3__no_recheck__mock__s1": false
+    },
+    "signals": {
+     "citation_rate": {
+      "values": [
+       0.4166666666666667,
+       0.4166666666666667
+      ],
+      "mean": 0.4166666666666667,
+      "sd": 0.0
+     },
+     "lexical_support": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "unique_cited": {
+      "values": [
+       15,
+       15
+      ],
+      "mean": 15,
+      "sd": 0.0
+     },
+     "read_to_cite": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "seed_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "read_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "text_overlap": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "budget_use_min": {
+      "values": [
+       0.07875,
+       0.07875
+      ],
+      "mean": 0.07875,
+      "sd": 0.0
+     },
+     "orphan_read_rate": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "recheck_new_cites": {
+      "values": [
+       0,
+       0
+      ],
+      "mean": 0,
+      "sd": 0.0
+     },
+     "isolation_ratio": {
+      "values": [
+       0.06771402504436401,
+       0.06771402504436401
+      ],
+      "mean": 0.06771402504436401,
+      "sd": 0.0
+     }
+    }
+   },
+   "format_split": {
+    "runs": [
+     "q3__format_split__mock__s0",
+     "q3__format_split__mock__s1"
+    ],
+    "excluded": [],
+    "alarms": {
+     "q3__format_split__mock__s0": {},
+     "q3__format_split__mock__s1": {}
+    },
+    "budget_use": {
+     "q3__format_split__mock__s0": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ],
+     "q3__format_split__mock__s1": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ]
+    },
+    "context_limited": {
+     "q3__format_split__mock__s0": false,
+     "q3__format_split__mock__s1": false
+    },
+    "signals": {
+     "citation_rate": {
+      "values": [
+       0.4166666666666667,
+       0.4166666666666667
+      ],
+      "mean": 0.4166666666666667,
+      "sd": 0.0
+     },
+     "lexical_support": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "unique_cited": {
+      "values": [
+       15,
+       15
+      ],
+      "mean": 15,
+      "sd": 0.0
+     },
+     "read_to_cite": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "seed_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "read_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "text_overlap": {
+      "values": [
+       0.7333333333333333,
+       0.7333333333333333
+      ],
+      "mean": 0.7333333333333333,
+      "sd": 0.0
+     },
+     "budget_use_min": {
+      "values": [
+       0.07875,
+       0.07875
+      ],
+      "mean": 0.07875,
+      "sd": 0.0
+     },
+     "orphan_read_rate": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "recheck_new_cites": {
+      "values": [
+       0,
+       0
+      ],
+      "mean": 0,
+      "sd": 0.0
+     },
+     "isolation_ratio": {
+      "values": [
+       0.0563448796443848,
+       0.0563448796443848
+      ],
+      "mean": 0.0563448796443848,
+      "sd": 0.0
+     }
+    }
+   },
+   "concat": {
+    "runs": [
+     "q3__concat__mock__s0",
+     "q3__concat__mock__s1"
+    ],
+    "excluded": [],
+    "alarms": {
+     "q3__concat__mock__s0": {},
+     "q3__concat__mock__s1": {}
+    },
+    "budget_use": {
+     "q3__concat__mock__s0": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ],
+     "q3__concat__mock__s1": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ]
+    },
+    "context_limited": {
+     "q3__concat__mock__s0": false,
+     "q3__concat__mock__s1": false
+    },
+    "signals": {
+     "citation_rate": {
+      "values": [
+       0.5,
+       0.5
+      ],
+      "mean": 0.5,
+      "sd": 0.0
+     },
+     "lexical_support": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "unique_cited": {
+      "values": [
+       15,
+       15
+      ],
+      "mean": 15,
+      "sd": 0.0
+     },
+     "read_to_cite": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "seed_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "read_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "text_overlap": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "budget_use_min": {
+      "values": [
+       0.07875,
+       0.07875
+      ],
+      "mean": 0.07875,
+      "sd": 0.0
+     },
+     "orphan_read_rate": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "recheck_new_cites": {
+      "values": [
+       0,
+       0
+      ],
+      "mean": 0,
+      "sd": 0.0
+     },
+     "isolation_ratio": {
+      "values": [
+       0.0512760241773002,
+       0.0512760241773002
+      ],
+      "mean": 0.0512760241773002,
+      "sd": 0.0
+     }
+    }
+   },
+   "no_orphan": {
+    "runs": [
+     "q3__no_orphan__mock__s0",
+     "q3__no_orphan__mock__s1"
+    ],
+    "excluded": [],
+    "alarms": {
+     "q3__no_orphan__mock__s0": {},
+     "q3__no_orphan__mock__s1": {}
+    },
+    "budget_use": {
+     "q3__no_orphan__mock__s0": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ],
+     "q3__no_orphan__mock__s1": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ]
+    },
+    "context_limited": {
+     "q3__no_orphan__mock__s0": false,
+     "q3__no_orphan__mock__s1": false
+    },
+    "signals": {
+     "citation_rate": {
+      "values": [
+       0.4166666666666667,
+       0.4166666666666667
+      ],
+      "mean": 0.4166666666666667,
+      "sd": 0.0
+     },
+     "lexical_support": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "unique_cited": {
+      "values": [
+       15,
+       15
+      ],
+      "mean": 15,
+      "sd": 0.0
+     },
+     "read_to_cite": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "seed_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "read_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "text_overlap": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "budget_use_min": {
+      "values": [
+       0.07875,
+       0.07875
+      ],
+      "mean": 0.07875,
+      "sd": 0.0
+     },
+     "orphan_read_rate": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "recheck_new_cites": {
+      "values": [
+       0,
+       0
+      ],
+      "mean": 0,
+      "sd": 0.0
+     },
+     "isolation_ratio": {
+      "values": [
+       0.05677347769072997,
+       0.05677347769072997
+      ],
+      "mean": 0.05677347769072997,
+      "sd": 0.0
+     }
+    }
+   },
+   "full": {
+    "runs": [
+     "q3__full__mock__s0",
+     "q3__full__mock__s1"
+    ],
+    "excluded": [],
+    "alarms": {
+     "q3__full__mock__s0": {},
+     "q3__full__mock__s1": {}
+    },
+    "budget_use": {
+     "q3__full__mock__s0": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ],
+     "q3__full__mock__s1": [
+      0.24,
+      0.13,
+      0.08,
+      0.27,
+      0.14,
+      0.11
+     ]
+    },
+    "context_limited": {
+     "q3__full__mock__s0": false,
+     "q3__full__mock__s1": false
+    },
+    "signals": {
+     "citation_rate": {
+      "values": [
+       0.4166666666666667,
+       0.4166666666666667
+      ],
+      "mean": 0.4166666666666667,
+      "sd": 0.0
+     },
+     "lexical_support": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "unique_cited": {
+      "values": [
+       15,
+       15
+      ],
+      "mean": 15,
+      "sd": 0.0
+     },
+     "read_to_cite": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "seed_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "read_overlap": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "text_overlap": {
+      "values": [
+       1.0,
+       1.0
+      ],
+      "mean": 1.0,
+      "sd": 0.0
+     },
+     "budget_use_min": {
+      "values": [
+       0.07875,
+       0.07875
+      ],
+      "mean": 0.07875,
+      "sd": 0.0
+     },
+     "orphan_read_rate": {
+      "values": [
+       0.0,
+       0.0
+      ],
+      "mean": 0.0,
+      "sd": 0.0
+     },
+     "recheck_new_cites": {
+      "values": [
+       0,
+       0
+      ],
+      "mean": 0,
+      "sd": 0.0
+     },
+     "isolation_ratio": {
+      "values": [
+       0.05669912693082606,
+       0.05669912693082606
+      ],
+      "mean": 0.05669912693082606,
+      "sd": 0.0
+     }
+    }
+   }
+  }
+ }
+}

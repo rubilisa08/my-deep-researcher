@@ -1,0 +1,408 @@
+{
+ "calls": [
+  {
+   "role": "coord:plan",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 3173,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 180,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 1133,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 3391,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 6607,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 9786,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 9994,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10201,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 180,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 1133,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 4337,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 7016,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10247,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10454,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10660,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 186,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 1140,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 4396,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 6434,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 9626,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 9836,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10045,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 159,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 1112,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 4294,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 7495,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10686,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10889,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 11093,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 160,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 1114,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 4289,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 7472,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10651,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10856,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 11061,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r2",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 295,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r2",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 1249,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r2",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 3509,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r2",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 6726,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r2",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 9907,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r2",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10112,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "researcher:s1-r2",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10317,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "coord:synth",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 356,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  }
+ ],
+ "total": {
+  "calls": 44,
+  "input_tokens": 263957,
+  "output_tokens": 8800,
+  "served_models": [
+   "claude-opus-5-5"
+  ]
+ }
+}

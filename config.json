@@ -1,0 +1,28 @@
+{
+  "_comment": "도메인(한국어 위키 · 인공지능/기계 학습)에 묶인 값. 코드는 이 파일과 data/만 바꾸면 다른 도메인에 쓸 수 있다.",
+  "corpus_path": "data/corpus.json",
+  "questions_path": "data/questions.json",
+  "output_dir": "output",
+  "wiki_lang": "ko",
+
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "context_tokens": 1000000,
+
+  "n_sections": 5,
+  "section_budget_chars": 120000,
+  "section_turns": 24,
+  "max_rounds": 2,
+  "recheck_budget_ratio": 0.5,
+  "min_budget_use": 0.8,
+  "max_parallel": 5,
+
+  "roles": [
+    {"name": "계보 추적자", "focus": "한 대상이 시기별로 어떻게 바뀌었는지, 무엇을 대체했고 무엇에 밀려났는지 추적한다"},
+    {"name": "구조 분석가", "focus": "모델·알고리즘의 구조와 작동 원리, 설계상의 대안을 비교한다"},
+    {"name": "학습법 분석가", "focus": "학습 방식·훈련 절차·데이터와 레이블 문제를 다룬다"},
+    {"name": "인프라 분석가", "focus": "하드웨어·연산·메모리·데이터 센터 등 실행 기반과 그 병목을 다룬다"},
+    {"name": "응용·산업 조사원", "focus": "제품·기업·서비스와 시장에서의 쓰임과 경쟁을 다룬다"},
+    {"name": "안전·사회 조사원", "focus": "정렬·안전·규제·사회적 영향과 그 논쟁을 다룬다"}
+  ]
+}

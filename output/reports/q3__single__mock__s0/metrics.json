@@ -1,0 +1,51 @@
+{
+ "run": "q3__single__mock__s0",
+ "splitter_version": "2e369f1c13",
+ "question_id": 3,
+ "arm": "single",
+ "seed": 0,
+ "backend": "mock",
+ "signals": {
+  "citation_rate": 0.5,
+  "lexical_support": 1.0,
+  "unique_cited": 3,
+  "read_to_cite": 1.0,
+  "seed_overlap": null,
+  "read_overlap": null,
+  "text_overlap": null,
+  "budget_use_min": 0.018191111111111113,
+  "orphan_read_rate": 0.0,
+  "recheck_new_cites": null,
+  "isolation_ratio": 0.0
+ },
+ "alarms": {
+  "cite_not_in_corpus": 0,
+  "cite_not_read": 0,
+  "invalid_assignment": 0,
+  "coordinator_raw_leak": 0,
+  "synth_new_cites": 0,
+  "unsubmitted": 0,
+  "model_mismatch": 0,
+  "switch_audit": 0
+ },
+ "audit": [],
+ "budget": [
+  {
+   "agent": "single",
+   "budget": 900000,
+   "used": 16372,
+   "context_limited": false,
+   "nudges": 2
+  }
+ ],
+ "tokens": {
+  "calls": 7,
+  "input_tokens": 43066,
+  "output_tokens": 1400,
+  "served_models": [
+   "claude-opus-5-5"
+  ]
+ },
+ "elapsed_s": 0.0,
+ "alarms_ok": true
+}

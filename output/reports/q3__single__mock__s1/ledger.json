@@ -1,0 +1,75 @@
+{
+ "calls": [
+  {
+   "role": "single",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 134,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "single",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 1087,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "single",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 4261,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "single",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 7477,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "single",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 9834,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "single",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10036,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  },
+  {
+   "role": "single",
+   "requested_model": "claude-opus-5-5",
+   "served_model": "claude-opus-5-5",
+   "input_tokens": 10237,
+   "output_tokens": 200,
+   "stop_reason": "end_turn",
+   "seconds": 0
+  }
+ ],
+ "total": {
+  "calls": 7,
+  "input_tokens": 43066,
+  "output_tokens": 1400,
+  "served_models": [
+   "claude-opus-5-5"
+  ]
+ }
+}
