@@ -1,0 +1,23 @@
+{
+ "question_id": 3,
+ "question": "",
+ "backend": "api",
+ "model": "gpt-5.4-mini",
+ "effort": "medium",
+ "context_tokens": 400000,
+ "n_sections": 5,
+ "section_budget_chars": 120000,
+ "section_turns": 24,
+ "max_rounds": 2,
+ "recheck_budget_ratio": 0.5,
+ "min_budget_use": 0.8,
+ "max_parallel": 5,
+ "multi_agent": true,
+ "split_by": "content",
+ "peer_scopes": true,
+ "recheck": true,
+ "synth": "bridge",
+ "assign_orphans": true,
+ "seed": 0,
+ "tag": ""
+}

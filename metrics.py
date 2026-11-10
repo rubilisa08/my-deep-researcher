@@ -30,16 +30,22 @@ def split_sentences(md: str) -> list[str]:
         if not line or line.startswith(("#", ">")) or set(line) <= set("-|: "):
             continue
         line = re.sub(r"^([-*+]|\d+\.)\s+", "", line)
-        parts = re.split(r"(?<=[.!?。])((?:\s*\[D:[^\]]+\])*)\s+", line)  # 마침표 뒤 인용은 앞 문장에 붙인다
-        buf = ""
-        for k, p in enumerate(parts):
-            buf += p
-            if k % 2 == 1:
-                out.append(buf.strip())
-                buf = ""
-        if buf.strip():
-            out.append(buf.strip())
-    return [x for x in out if len(x) >= 8]
+        # 경계 = 마침표(와 바로 뒤에 붙은 인용 묶음 전체) 다음에 공백이나 줄 끝이 올 때.
+        # v1은 인용 묶음이 줄 끝에 오면 정규식이 되돌아가며 인용과 인용 사이를 잘라, 인용만 남은 조각을 문장으로 셌다.
+        start = 0
+        for m in re.finditer(r"[.!?。](?:\s*\[D:[^\]]+\])*", line):
+            if m.end() == len(line) or line[m.end()].isspace():
+                out.append(line[start:m.end()].strip())
+                start = m.end()
+        if line[start:].strip():
+            out.append(line[start:].strip())
+    merged: list[str] = []  # 인용만 남은 조각은 앞 문장에 붙인다
+    for x in out:
+        if merged and not CITE.sub("", x).strip(" .,"):
+            merged[-1] += " " + x
+        else:
+            merged.append(x)
+    return [x for x in merged if len(CITE.sub("", x).strip()) >= 8]
 
 
 # 문장 분리 규칙이 바뀌면 지표 분모가 바뀐다 → 버전을 기록하고 섞인 비교를 거부한다
@@ -262,16 +268,22 @@ def evaluate(run_dir: Path, corpus: Corpus | None = None) -> dict:
 
 
 def record_run(run_dir: Path, corpus: Corpus | None = None) -> dict:
-    """평가하고 output/runs.jsonl에 한 줄 추가한다."""
+    """평가하고 output/runs.jsonl에 기록한다. 같은 실행을 다시 평가하면 그 줄을 바꾼다(중복 없음)."""
     m = evaluate(run_dir, corpus)
     line = {k: m[k] for k in ("run", "question_id", "arm", "seed", "backend", "alarms_ok", "signals", "alarms",
                               "splitter_version", "elapsed_s")}
     line["report"] = str(Path(run_dir).relative_to(ROOT) / "report.md").replace("\\", "/")
-    with open(ROOT / CONFIG["output_dir"] / "runs.jsonl", "a", encoding="utf-8") as f:
-        f.write(json.dumps(line, ensure_ascii=False) + "\n")
+    p = ROOT / CONFIG["output_dir"] / "runs.jsonl"
+    old = [json.loads(x) for x in p.read_text(encoding="utf-8").splitlines() if x.strip()] if p.exists() else []
+    rows = [x for x in old if x["run"] != line["run"]] + [line]
+    p.write_text("".join(json.dumps(x, ensure_ascii=False) + "\n" for x in rows), encoding="utf-8")
     return m
 
 
 if __name__ == "__main__":
-    for d in sys.argv[1:]:
-        print(json.dumps(evaluate(Path(d)), ensure_ascii=False, indent=1))
+    # python metrics.py <run_dir> ...   또는   python metrics.py --all  (문장 분리 규칙을 바꾼 뒤 전체 다시 평가)
+    targets = sorted((ROOT / CONFIG["output_dir"] / "reports").iterdir()) if sys.argv[1:] == ["--all"] else map(Path, sys.argv[1:])
+    c = Corpus()
+    for d in targets:
+        m = record_run(d, c)
+        print(d.name, "경보 0" if m["alarms_ok"] else {k: v for k, v in m["alarms"].items() if v}, m["splitter_version"])

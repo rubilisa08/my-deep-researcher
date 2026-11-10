@@ -1,6 +1,6 @@
 {
  "run": "q3__no_recheck__mock__s1",
- "splitter_version": "2e369f1c13",
+ "splitter_version": "5cbc30d1f0",
  "question_id": 3,
  "arm": "no_recheck",
  "seed": 1,

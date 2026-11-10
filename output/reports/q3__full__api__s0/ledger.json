@@ -1,0 +1,1153 @@
+{
+ "calls": [
+  {
+   "role": "coord:plan",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 4180,
+   "cached_tokens": 0,
+   "output_tokens": 4287,
+   "stop_reason": "completed",
+   "seconds": 30.9
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 1379,
+   "cached_tokens": 0,
+   "output_tokens": 174,
+   "stop_reason": "completed",
+   "seconds": 2.8
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 1363,
+   "cached_tokens": 0,
+   "output_tokens": 120,
+   "stop_reason": "completed",
+   "seconds": 2.8
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 1417,
+   "cached_tokens": 0,
+   "output_tokens": 198,
+   "stop_reason": "completed",
+   "seconds": 3.0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 1436,
+   "cached_tokens": 0,
+   "output_tokens": 184,
+   "stop_reason": "completed",
+   "seconds": 3.1
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 1389,
+   "cached_tokens": 0,
+   "output_tokens": 227,
+   "stop_reason": "completed",
+   "seconds": 3.6
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 3257,
+   "cached_tokens": 1280,
+   "output_tokens": 161,
+   "stop_reason": "completed",
+   "seconds": 2.6
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 5330,
+   "cached_tokens": 1280,
+   "output_tokens": 152,
+   "stop_reason": "completed",
+   "seconds": 2.4
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 5222,
+   "cached_tokens": 1280,
+   "output_tokens": 147,
+   "stop_reason": "completed",
+   "seconds": 2.8
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 5472,
+   "cached_tokens": 1280,
+   "output_tokens": 169,
+   "stop_reason": "completed",
+   "seconds": 2.8
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 7012,
+   "cached_tokens": 1280,
+   "output_tokens": 205,
+   "stop_reason": "completed",
+   "seconds": 3.1
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 13742,
+   "cached_tokens": 3072,
+   "output_tokens": 109,
+   "stop_reason": "completed",
+   "seconds": 2.5
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 7341,
+   "cached_tokens": 5248,
+   "output_tokens": 153,
+   "stop_reason": "completed",
+   "seconds": 3.0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 6553,
+   "cached_tokens": 5120,
+   "output_tokens": 198,
+   "stop_reason": "completed",
+   "seconds": 3.0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 9323,
+   "cached_tokens": 5376,
+   "output_tokens": 183,
+   "stop_reason": "completed",
+   "seconds": 2.8
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 12628,
+   "cached_tokens": 6912,
+   "output_tokens": 67,
+   "stop_reason": "completed",
+   "seconds": 2.5
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 15652,
+   "cached_tokens": 13568,
+   "output_tokens": 144,
+   "stop_reason": "completed",
+   "seconds": 2.8
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 11403,
+   "cached_tokens": 9216,
+   "output_tokens": 61,
+   "stop_reason": "completed",
+   "seconds": 2.3
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 10355,
+   "cached_tokens": 6400,
+   "output_tokens": 189,
+   "stop_reason": "completed",
+   "seconds": 2.7
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 19289,
+   "cached_tokens": 7168,
+   "output_tokens": 149,
+   "stop_reason": "completed",
+   "seconds": 3.2
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 13554,
+   "cached_tokens": 12544,
+   "output_tokens": 220,
+   "stop_reason": "completed",
+   "seconds": 3.1
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 18506,
+   "cached_tokens": 15488,
+   "output_tokens": 63,
+   "stop_reason": "completed",
+   "seconds": 2.7
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 13313,
+   "cached_tokens": 11264,
+   "output_tokens": 83,
+   "stop_reason": "completed",
+   "seconds": 2.8
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 23021,
+   "cached_tokens": 0,
+   "output_tokens": 137,
+   "stop_reason": "completed",
+   "seconds": 2.8
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 22301,
+   "cached_tokens": 19200,
+   "output_tokens": 153,
+   "stop_reason": "completed",
+   "seconds": 3.0
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 19286,
+   "cached_tokens": 13440,
+   "output_tokens": 138,
+   "stop_reason": "completed",
+   "seconds": 2.5
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 14318,
+   "cached_tokens": 13184,
+   "output_tokens": 43,
+   "stop_reason": "completed",
+   "seconds": 1.9
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 20119,
+   "cached_tokens": 18432,
+   "output_tokens": 140,
+   "stop_reason": "completed",
+   "seconds": 2.9
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 29932,
+   "cached_tokens": 10240,
+   "output_tokens": 49,
+   "stop_reason": "completed",
+   "seconds": 2.5
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 22552,
+   "cached_tokens": 22144,
+   "output_tokens": 172,
+   "stop_reason": "completed",
+   "seconds": 2.9
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 15232,
+   "cached_tokens": 0,
+   "output_tokens": 176,
+   "stop_reason": "completed",
+   "seconds": 2.6
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 31605,
+   "cached_tokens": 19200,
+   "output_tokens": 267,
+   "stop_reason": "completed",
+   "seconds": 3.6
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 22859,
+   "cached_tokens": 19968,
+   "output_tokens": 385,
+   "stop_reason": "completed",
+   "seconds": 4.7
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 29890,
+   "cached_tokens": 14208,
+   "output_tokens": 160,
+   "stop_reason": "completed",
+   "seconds": 3.5
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 32542,
+   "cached_tokens": 29824,
+   "output_tokens": 481,
+   "stop_reason": "completed",
+   "seconds": 5.3
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 36448,
+   "cached_tokens": 31488,
+   "output_tokens": 222,
+   "stop_reason": "completed",
+   "seconds": 3.6
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 41219,
+   "cached_tokens": 0,
+   "output_tokens": 49,
+   "stop_reason": "completed",
+   "seconds": 2.2
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 25965,
+   "cached_tokens": 22784,
+   "output_tokens": 250,
+   "stop_reason": "completed",
+   "seconds": 3.6
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 30958,
+   "cached_tokens": 29824,
+   "output_tokens": 139,
+   "stop_reason": "completed",
+   "seconds": 3.3
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 35570,
+   "cached_tokens": 32384,
+   "output_tokens": 269,
+   "stop_reason": "completed",
+   "seconds": 3.9
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 42193,
+   "cached_tokens": 36352,
+   "output_tokens": 65,
+   "stop_reason": "completed",
+   "seconds": 2.6
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 28896,
+   "cached_tokens": 25856,
+   "output_tokens": 63,
+   "stop_reason": "completed",
+   "seconds": 3.4
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 42795,
+   "cached_tokens": 41088,
+   "output_tokens": 105,
+   "stop_reason": "completed",
+   "seconds": 2.6
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 41766,
+   "cached_tokens": 30848,
+   "output_tokens": 616,
+   "stop_reason": "completed",
+   "seconds": 6.5
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 44891,
+   "cached_tokens": 42624,
+   "output_tokens": 322,
+   "stop_reason": "completed",
+   "seconds": 3.7
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 43321,
+   "cached_tokens": 15104,
+   "output_tokens": 77,
+   "stop_reason": "completed",
+   "seconds": 2.2
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 38993,
+   "cached_tokens": 35456,
+   "output_tokens": 753,
+   "stop_reason": "completed",
+   "seconds": 8.2
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 30950,
+   "cached_tokens": 28800,
+   "output_tokens": 677,
+   "stop_reason": "completed",
+   "seconds": 7.3
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 44301,
+   "cached_tokens": 41600,
+   "output_tokens": 161,
+   "stop_reason": "completed",
+   "seconds": 3.5
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 35612,
+   "cached_tokens": 0,
+   "output_tokens": 59,
+   "stop_reason": "completed",
+   "seconds": 2.2
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 48324,
+   "cached_tokens": 42112,
+   "output_tokens": 469,
+   "stop_reason": "completed",
+   "seconds": 5.6
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 54207,
+   "cached_tokens": 48256,
+   "output_tokens": 72,
+   "stop_reason": "completed",
+   "seconds": 2.7
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 54527,
+   "cached_tokens": 54144,
+   "output_tokens": 223,
+   "stop_reason": "completed",
+   "seconds": 3.9
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 58588,
+   "cached_tokens": 54400,
+   "output_tokens": 94,
+   "stop_reason": "completed",
+   "seconds": 3.0
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 25522,
+   "cached_tokens": 22400,
+   "output_tokens": 5515,
+   "stop_reason": "completed",
+   "seconds": 37.5
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 59614,
+   "cached_tokens": 58496,
+   "output_tokens": 855,
+   "stop_reason": "completed",
+   "seconds": 8.6
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 42566,
+   "cached_tokens": 38912,
+   "output_tokens": 3898,
+   "stop_reason": "completed",
+   "seconds": 27.4
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 61391,
+   "cached_tokens": 59520,
+   "output_tokens": 524,
+   "stop_reason": "completed",
+   "seconds": 5.8
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 39537,
+   "cached_tokens": 30848,
+   "output_tokens": 4442,
+   "stop_reason": "completed",
+   "seconds": 29.5
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 41963,
+   "cached_tokens": 1280,
+   "output_tokens": 997,
+   "stop_reason": "completed",
+   "seconds": 10.4
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 31089,
+   "cached_tokens": 25344,
+   "output_tokens": 282,
+   "stop_reason": "completed",
+   "seconds": 17.6
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 44031,
+   "cached_tokens": 39424,
+   "output_tokens": 602,
+   "stop_reason": "completed",
+   "seconds": 6.7
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 43012,
+   "cached_tokens": 41856,
+   "output_tokens": 241,
+   "stop_reason": "completed",
+   "seconds": 3.4
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 62810,
+   "cached_tokens": 61312,
+   "output_tokens": 1679,
+   "stop_reason": "completed",
+   "seconds": 13.2
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 34147,
+   "cached_tokens": 30976,
+   "output_tokens": 178,
+   "stop_reason": "completed",
+   "seconds": 3.6
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 46111,
+   "cached_tokens": 42880,
+   "output_tokens": 257,
+   "stop_reason": "completed",
+   "seconds": 3.9
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 45357,
+   "cached_tokens": 44160,
+   "output_tokens": 7004,
+   "stop_reason": "completed",
+   "seconds": 43.0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 49250,
+   "cached_tokens": 45952,
+   "output_tokens": 54,
+   "stop_reason": "completed",
+   "seconds": 2.6
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 47004,
+   "cached_tokens": 43904,
+   "output_tokens": 1414,
+   "stop_reason": "completed",
+   "seconds": 10.0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 52413,
+   "cached_tokens": 45184,
+   "output_tokens": 212,
+   "stop_reason": "completed",
+   "seconds": 4.0
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 56332,
+   "cached_tokens": 52352,
+   "output_tokens": 176,
+   "stop_reason": "completed",
+   "seconds": 3.3
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 37658,
+   "cached_tokens": 34048,
+   "output_tokens": 1448,
+   "stop_reason": "completed",
+   "seconds": 11.5
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 48470,
+   "cached_tokens": 46848,
+   "output_tokens": 394,
+   "stop_reason": "completed",
+   "seconds": 5.0
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 52832,
+   "cached_tokens": 49152,
+   "output_tokens": 993,
+   "stop_reason": "completed",
+   "seconds": 7.8
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 65893,
+   "cached_tokens": 56192,
+   "output_tokens": 97,
+   "stop_reason": "completed",
+   "seconds": 3.3
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 39158,
+   "cached_tokens": 37504,
+   "output_tokens": 245,
+   "stop_reason": "completed",
+   "seconds": 3.6
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 51571,
+   "cached_tokens": 48384,
+   "output_tokens": 351,
+   "stop_reason": "completed",
+   "seconds": 4.4
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 53877,
+   "cached_tokens": 52736,
+   "output_tokens": 376,
+   "stop_reason": "completed",
+   "seconds": 4.6
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 42201,
+   "cached_tokens": 39040,
+   "output_tokens": 223,
+   "stop_reason": "completed",
+   "seconds": 3.4
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 65396,
+   "cached_tokens": 62720,
+   "output_tokens": 3202,
+   "stop_reason": "completed",
+   "seconds": 21.0
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 61433,
+   "cached_tokens": 51456,
+   "output_tokens": 359,
+   "stop_reason": "completed",
+   "seconds": 4.7
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 56657,
+   "cached_tokens": 53760,
+   "output_tokens": 362,
+   "stop_reason": "completed",
+   "seconds": 4.9
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 68650,
+   "cached_tokens": 65280,
+   "output_tokens": 220,
+   "stop_reason": "completed",
+   "seconds": 4.3
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 60292,
+   "cached_tokens": 56576,
+   "output_tokens": 111,
+   "stop_reason": "completed",
+   "seconds": 2.9
+  },
+  {
+   "role": "researcher:s5-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 49007,
+   "cached_tokens": 42112,
+   "output_tokens": 1282,
+   "stop_reason": "completed",
+   "seconds": 8.4
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 66943,
+   "cached_tokens": 65792,
+   "output_tokens": 2114,
+   "stop_reason": "completed",
+   "seconds": 13.7
+  },
+  {
+   "role": "researcher:s3-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 65134,
+   "cached_tokens": 35456,
+   "output_tokens": 1135,
+   "stop_reason": "completed",
+   "seconds": 7.2
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 72144,
+   "cached_tokens": 68480,
+   "output_tokens": 135,
+   "stop_reason": "completed",
+   "seconds": 3.8
+  },
+  {
+   "role": "researcher:s4-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 63821,
+   "cached_tokens": 60160,
+   "output_tokens": 981,
+   "stop_reason": "completed",
+   "seconds": 7.3
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 69109,
+   "cached_tokens": 66816,
+   "output_tokens": 435,
+   "stop_reason": "completed",
+   "seconds": 4.9
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 75107,
+   "cached_tokens": 72064,
+   "output_tokens": 810,
+   "stop_reason": "completed",
+   "seconds": 7.1
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 78856,
+   "cached_tokens": 68992,
+   "output_tokens": 163,
+   "stop_reason": "completed",
+   "seconds": 4.0
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 75969,
+   "cached_tokens": 44800,
+   "output_tokens": 398,
+   "stop_reason": "completed",
+   "seconds": 4.6
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 80352,
+   "cached_tokens": 75008,
+   "output_tokens": 591,
+   "stop_reason": "completed",
+   "seconds": 6.5
+  },
+  {
+   "role": "researcher:s1-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 80834,
+   "cached_tokens": 78720,
+   "output_tokens": 1694,
+   "stop_reason": "completed",
+   "seconds": 11.1
+  },
+  {
+   "role": "researcher:s2-r1",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 84322,
+   "cached_tokens": 80256,
+   "output_tokens": 2264,
+   "stop_reason": "completed",
+   "seconds": 17.1
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 2236,
+   "cached_tokens": 0,
+   "output_tokens": 272,
+   "stop_reason": "completed",
+   "seconds": 3.7
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 6074,
+   "cached_tokens": 2176,
+   "output_tokens": 242,
+   "stop_reason": "completed",
+   "seconds": 3.0
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 21232,
+   "cached_tokens": 5888,
+   "output_tokens": 164,
+   "stop_reason": "completed",
+   "seconds": 2.8
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 25125,
+   "cached_tokens": 21120,
+   "output_tokens": 226,
+   "stop_reason": "completed",
+   "seconds": 3.8
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 29239,
+   "cached_tokens": 24960,
+   "output_tokens": 153,
+   "stop_reason": "completed",
+   "seconds": 3.1
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 32238,
+   "cached_tokens": 29056,
+   "output_tokens": 609,
+   "stop_reason": "completed",
+   "seconds": 6.7
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 33856,
+   "cached_tokens": 32128,
+   "output_tokens": 87,
+   "stop_reason": "completed",
+   "seconds": 3.8
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 34871,
+   "cached_tokens": 33792,
+   "output_tokens": 56,
+   "stop_reason": "completed",
+   "seconds": 2.4
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 35874,
+   "cached_tokens": 34688,
+   "output_tokens": 312,
+   "stop_reason": "completed",
+   "seconds": 4.5
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 39460,
+   "cached_tokens": 35712,
+   "output_tokens": 425,
+   "stop_reason": "completed",
+   "seconds": 4.9
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 40821,
+   "cached_tokens": 39296,
+   "output_tokens": 56,
+   "stop_reason": "completed",
+   "seconds": 3.0
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 41878,
+   "cached_tokens": 40704,
+   "output_tokens": 3823,
+   "stop_reason": "completed",
+   "seconds": 24.8
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 41260,
+   "cached_tokens": 2176,
+   "output_tokens": 1325,
+   "stop_reason": "completed",
+   "seconds": 8.4
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 42637,
+   "cached_tokens": 41088,
+   "output_tokens": 247,
+   "stop_reason": "completed",
+   "seconds": 4.1
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 49204,
+   "cached_tokens": 42496,
+   "output_tokens": 1359,
+   "stop_reason": "completed",
+   "seconds": 8.6
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 50615,
+   "cached_tokens": 49024,
+   "output_tokens": 153,
+   "stop_reason": "completed",
+   "seconds": 3.0
+  },
+  {
+   "role": "researcher:s2-r2",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 56754,
+   "cached_tokens": 50432,
+   "output_tokens": 1478,
+   "stop_reason": "completed",
+   "seconds": 9.6
+  },
+  {
+   "role": "coord:synth",
+   "requested_model": "gpt-5.4-mini",
+   "served_model": "gpt-5.4-mini-2026-03-17",
+   "input_tokens": 5652,
+   "cached_tokens": 0,
+   "output_tokens": 1802,
+   "stop_reason": "completed",
+   "seconds": 13.0
+  }
+ ],
+ "total": {
+  "calls": 114,
+  "input_tokens": 4189158,
+  "cached_input_tokens": 3482624,
+  "output_tokens": 76131,
+  "served_models": [
+   "gpt-5.4-mini-2026-03-17"
+  ]
+ }
+}

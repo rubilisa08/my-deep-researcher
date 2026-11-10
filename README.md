@@ -66,7 +66,7 @@ python baseline.py --question 3
 python ablation.py --question 3 --arms full,no_peer,no_recheck,format_split,single --trials 2
 ```
 
-실행 결과 하나를 다시 평가:
+실행 결과 하나를 다시 평가 (문장 분리 규칙을 바꿨다면 `--all`로 전체):
 
 ```bash
 python metrics.py output/reports/q3__full__api__s0
