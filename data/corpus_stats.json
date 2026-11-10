@@ -3,7 +3,7 @@
   "total_chars": 2201570,
   "est_tokens_low": 1100785,
   "est_tokens_high": 2201570,
-  "context_window": 1000000,
+  "context_window": 400000,
   "link_edges": 9543,
   "links_per_doc_median": 60,
   "zero_link_docs": [
@@ -13,5 +13,8 @@
   ],
   "no_inbound_docs": [],
   "per_researcher_budget_chars": 120000,
-  "share_one_researcher_can_read": 0.055
+  "share_one_researcher_can_read": 0.055,
+  "tokenizer": "tiktoken o200k_base",
+  "counted_tokens": 1158318,
+  "tokens_per_char": 0.526
 }

@@ -40,10 +40,11 @@
  ],
  "tokens": {
   "calls": 7,
-  "input_tokens": 43066,
+  "input_tokens": 42609,
+  "cached_input_tokens": 0,
   "output_tokens": 1400,
   "served_models": [
-   "claude-opus-5-5"
+   "gpt-5.4-mini"
   ]
  },
  "elapsed_s": 0.0,

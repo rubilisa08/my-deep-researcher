@@ -39,10 +39,9 @@ CITE = re.compile(r"\[D:([^\]]+)\]")
 class Settings:
     question_id: int = 3
     question: str = ""               # 직접 입력 질문 (있으면 question_id 대신)
-    backend: str = "anthropic"       # anthropic | mock (오프라인 배선 확인용)
+    backend: str = "api"             # api(config.json의 provider) | mock(오프라인 배선 확인용)
     model: str = CONFIG["model"]
     effort: str = CONFIG["effort"]
-    fallbacks: bool = True           # 서버측 refusal fallback. 다른 모델이 응답하면 경보 model_mismatch
     context_tokens: int = CONFIG["context_tokens"]
     n_sections: int = CONFIG["n_sections"]
     section_budget_chars: int = CONFIG["section_budget_chars"]
@@ -119,7 +118,7 @@ def resolve_question(s: Settings) -> dict:
     return load_questions()[s.question_id]
 
 
-# ================================================================ LLM
+# ================================================================ LLM (공급자별 어댑터)
 @dataclass
 class Ledger:
     calls: list[dict] = field(default_factory=list)
@@ -131,6 +130,7 @@ class Ledger:
 
     def totals(self) -> dict:
         return {"calls": len(self.calls), "input_tokens": sum(c["input_tokens"] for c in self.calls),
+                "cached_input_tokens": sum(c.get("cached_tokens", 0) for c in self.calls),
                 "output_tokens": sum(c["output_tokens"] for c in self.calls),
                 "served_models": sorted({c["served_model"] for c in self.calls})}
 
@@ -139,19 +139,105 @@ class Blocked(RuntimeError):
     pass
 
 
-def text_of(resp) -> str:
-    return "".join(b.text for b in resp.content if getattr(b, "type", None) == "text")
+class ContextFull(RuntimeError):
+    """모델 컨텍스트 윈도우를 넘어 요청이 거절됨."""
+
+
+@dataclass
+class Call:
+    id: str
+    name: str
+    input: dict
+
+
+@dataclass
+class Reply:
+    """공급자와 무관한 응답. 에이전트 루프는 이것만 본다."""
+    text: str
+    calls: list[Call]
+    stop: str           # end | tool | pause | length
+    n_input: int        # 이번 요청의 입력 토큰(=컨텍스트 크기) — 85% 한도 판단용
+    raw: Any = None     # 공급자 원본(대화에 되붙일 때 사용)
+
+
+class OpenAILLM:
+    """OpenAI Chat Completions. 도구 호출(function calling)과 JSON 스키마 구조화 출력을 쓴다."""
+
+    def __init__(self, s: Settings, ledger: Ledger):
+        import openai
+        self.openai = openai
+        self.client = openai.OpenAI(api_key=_api_key("OPENAI_API_KEY"), max_retries=4)
+        self.s, self.ledger = s, ledger
+        self._effort_ok = True
+
+    @staticmethod
+    def _tools(tools):
+        return [{"type": "function", "function": {"name": t["name"], "description": t["description"],
+                                                  "parameters": t["input_schema"]}} for t in tools]
+
+    def chat(self, *, role, system, messages, tools=None, max_tokens=16000, json_schema=None) -> Reply:
+        kw = dict(model=self.s.model, messages=[{"role": "system", "content": system}, *messages],
+                  max_completion_tokens=max_tokens)
+        if self._effort_ok and self.s.effort:
+            kw["reasoning_effort"] = self.s.effort
+        if tools:
+            kw["tools"] = self._tools(tools)
+        if json_schema:
+            kw["response_format"] = {"type": "json_schema",
+                                     "json_schema": {"name": "output", "schema": json_schema, "strict": True}}
+        t0 = time.time()
+        try:
+            r = self.client.chat.completions.create(**kw)
+        except self.openai.BadRequestError as e:
+            msg = str(e)
+            if "context_length" in msg or "maximum context" in msg:
+                raise ContextFull(msg[:200]) from e
+            if "reasoning_effort" in msg and self._effort_ok:  # 추론 강도를 안 받는 모델이면 빼고 다시
+                self._effort_ok = False
+                return self.chat(role=role, system=system, messages=messages, tools=tools,
+                                 max_tokens=max_tokens, json_schema=json_schema)
+            raise
+        ch, u = r.choices[0], r.usage
+        cached = getattr(getattr(u, "prompt_tokens_details", None), "cached_tokens", 0) or 0
+        self.ledger.add(role=role, requested_model=self.s.model, served_model=r.model, input_tokens=u.prompt_tokens,
+                        cached_tokens=cached, output_tokens=u.completion_tokens, stop_reason=ch.finish_reason,
+                        seconds=round(time.time() - t0, 1))
+        m = ch.message
+        if getattr(m, "refusal", None):
+            raise Blocked(f"{role}: refusal")
+        calls = []
+        for tc in m.tool_calls or []:
+            try:
+                args = json.loads(tc.function.arguments or "{}")
+            except json.JSONDecodeError:
+                args = {"_invalid_json": tc.function.arguments}
+            calls.append(Call(tc.id, tc.function.name, args))
+        stop = {"tool_calls": "tool", "length": "length"}.get(ch.finish_reason, "end")
+        return Reply(m.content or "", calls, stop, u.prompt_tokens, m)
+
+    def assistant_msg(self, rep: Reply) -> dict:
+        d: dict = {"role": "assistant", "content": rep.text or None}
+        if rep.calls:
+            d["tool_calls"] = [{"id": c.id, "type": "function",
+                                "function": {"name": c.name, "arguments": json.dumps(c.input, ensure_ascii=False)}}
+                               for c in rep.calls]
+        return d
+
+    def result_msgs(self, results: list[tuple[str, str, bool]]) -> list[dict]:
+        return [{"role": "tool", "tool_call_id": i, "content": ("[오류] " if err else "") + out}
+                for i, out, err in results]
 
 
 class AnthropicLLM:
-    """공식 SDK. 긴 출력에 대비해 스트리밍으로 받고, 모든 호출의 토큰·응답 모델을 장부에 남긴다."""
+    """Anthropic Messages API (Claude). sk-ant- 키를 쓸 때 config.json의 provider를 anthropic으로."""
 
     def __init__(self, s: Settings, ledger: Ledger):
         import anthropic
-        self.client = anthropic.Anthropic(max_retries=4)
+        self.anthropic = anthropic
+        self.client = anthropic.Anthropic(api_key=_api_key("ANTHROPIC_API_KEY"), max_retries=4)
         self.s, self.ledger = s, ledger
 
-    def chat(self, *, role, system, messages, tools=None, max_tokens=16000, json_schema=None):
+    def chat(self, *, role, system, messages, tools=None, max_tokens=16000, json_schema=None) -> Reply:
         oc: dict = {"effort": self.s.effort}
         if json_schema:
             oc["format"] = {"type": "json_schema", "schema": json_schema}
@@ -160,31 +246,32 @@ class AnthropicLLM:
         if tools:
             kw["tools"] = tools
         t0 = time.time()
-        if self.s.fallbacks:
-            with self.client.beta.messages.stream(**kw, betas=["server-side-fallback-2026-07-01"],
-                                                  fallbacks="default") as st:
-                resp = st.get_final_message()
-        else:
+        try:
             with self.client.messages.stream(**kw) as st:
-                resp = st.get_final_message()
-        u = resp.usage
-        n_in = sum((getattr(u, k, 0) or 0) for k in ("input_tokens", "cache_read_input_tokens", "cache_creation_input_tokens"))
-        self.ledger.add(role=role, requested_model=self.s.model, served_model=resp.model, input_tokens=n_in,
-                        output_tokens=u.output_tokens or 0, stop_reason=resp.stop_reason, seconds=round(time.time() - t0, 1))
-        if resp.stop_reason == "refusal":
+                r = st.get_final_message()
+        except self.anthropic.BadRequestError as e:
+            if "prompt is too long" in str(e):
+                raise ContextFull(str(e)[:200]) from e
+            raise
+        u = r.usage
+        cached = getattr(u, "cache_read_input_tokens", 0) or 0
+        n_in = (u.input_tokens or 0) + cached + (getattr(u, "cache_creation_input_tokens", 0) or 0)
+        self.ledger.add(role=role, requested_model=self.s.model, served_model=r.model, input_tokens=n_in,
+                        cached_tokens=cached, output_tokens=u.output_tokens or 0, stop_reason=r.stop_reason,
+                        seconds=round(time.time() - t0, 1))
+        if r.stop_reason == "refusal":
             raise Blocked(f"{role}: refusal")
-        resp.n_input = n_in
-        return resp
+        text = "".join(b.text for b in r.content if b.type == "text")
+        calls = [Call(b.id, b.name, dict(b.input)) for b in r.content if b.type == "tool_use"]
+        stop = {"tool_use": "tool", "pause_turn": "pause", "max_tokens": "length"}.get(r.stop_reason, "end")
+        return Reply(text, calls, stop, n_in, r)
 
+    def assistant_msg(self, rep: Reply) -> dict:
+        return {"role": "assistant", "content": rep.raw.content}
 
-class _B:
-    def __init__(self, **kw):
-        self.__dict__.update(kw)
-
-
-class _R:
-    def __init__(self, content, stop_reason):
-        self.content, self.stop_reason, self.model, self.n_input = content, stop_reason, "mock", 0
+    def result_msgs(self, results: list[tuple[str, str, bool]]) -> list[dict]:
+        return [{"role": "user", "content": [{"type": "tool_result", "tool_use_id": i, "content": out,
+                                              **({"is_error": True} if err else {})} for i, out, err in results]}]
 
 
 class MockLLM:
@@ -196,12 +283,12 @@ class MockLLM:
     def _id(self):
         with self._lock:
             self._n += 1
-            return f"toolu_mock_{self._n}"
+            return f"call_mock_{self._n}"
 
-    def chat(self, *, role, system, messages, tools=None, json_schema=None, **_):
-        blob = json.dumps(messages, ensure_ascii=False, default=lambda o: getattr(o, "__dict__", str(o)))
+    def chat(self, *, role, system, messages, tools=None, json_schema=None, **_) -> Reply:
+        blob = json.dumps(messages, ensure_ascii=False, default=str)
         self.ledger.add(role=role, requested_model=self.s.model, served_model=self.s.model,
-                        input_tokens=len(blob) // 2, output_tokens=200, stop_reason="end_turn", seconds=0)
+                        input_tokens=len(blob) // 2, cached_tokens=0, output_tokens=200, stop_reason="end", seconds=0)
         ids = list(dict.fromkeys(CITE.findall(blob)))
         if json_schema:  # 기획
             n = int(re.search(r"절 수: (\d+)", blob).group(1))
@@ -209,25 +296,45 @@ class MockLLM:
             secs = [{"title": f"모의 절 {k + 1}", "role": roles[k % len(roles)], "scope": f"모의 범위 {k + 1}",
                      "questions": ["무엇이 바뀌었나?"], "seed_doc_ids": ids[k::n][:3], "search_hints": ["모델"],
                      "budget_weight": 1 + k % 3} for k in range(n)]
-            return _R([_B(type="text", text=json.dumps({"sections": secs}, ensure_ascii=False))], "end_turn")
+            return Reply(json.dumps({"sections": secs}, ensure_ascii=False), [], "end", 0)
         if tools:
             turns = sum(1 for m in messages if m["role"] == "assistant")
             if turns == 0:
-                return _R([_B(type="tool_use", id=self._id(), name="search_corpus", input={"query": "모델 학습 신경망"})], "tool_use")
+                return Reply("", [Call(self._id(), "search_corpus", {"query": "모델 학습 신경망"})], "tool", 0)
             read = set(re.findall(r'"doc_id": "([^"]+)"', blob))
             todo = [i for i in ids if i not in read]
             if turns < 4 and todo:
-                return _R([_B(type="tool_use", id=self._id(), name="read_doc", input={"doc_id": todo[0]})], "tool_use")
+                return Reply("", [Call(self._id(), "read_doc", {"doc_id": todo[0]})], "tool", 0)
             cites = " ".join(f"[D:{i}]" for i in sorted(read)[:3])
-            md = f"모의 원고의 첫 문장이다 {cites}.\n\n둘째 문장에는 인용이 없다."
             ok = "재조사" in blob or "절: s1 「" not in blob
-            return _R([_B(type="tool_use", id=self._id(), name="submit_section",
-                          input={"markdown": md, "sufficient": ok, "gaps": [] if ok else ["모의 공백"]})], "tool_use")
-        return _R([_B(type="text", text="### 서론\n모의 서론이다.\n### 결론\n모의 결론이다.")], "end_turn")
+            return Reply("", [Call(self._id(), "submit_section", {
+                "markdown": f"모의 원고의 첫 문장이다 {cites}.\n\n둘째 문장에는 인용이 없다.",
+                "sufficient": ok, "gaps": [] if ok else ["모의 공백"]})], "tool", 0)
+        return Reply("### 서론\n모의 서론이다.\n### 결론\n모의 결론이다.", [], "end", 0)
+
+    def assistant_msg(self, rep: Reply) -> dict:
+        return {"role": "assistant", "content": rep.text,
+                "tool_calls": [{"id": c.id, "name": c.name, "input": c.input} for c in rep.calls]}
+
+    def result_msgs(self, results):
+        return [{"role": "tool", "tool_call_id": i, "content": out} for i, out, _ in results]
+
+
+def _api_key(preferred: str) -> str | None:
+    """.env의 키 이름이 공급자와 달라도(예: OpenAI 키를 ANTHROPIC_API_KEY에 넣음) 형식으로 알아본다."""
+    import os
+    want = "sk-ant-" if preferred.startswith("ANTHROPIC") else "sk-"
+    for name in (preferred, "OPENAI_API_KEY", "ANTHROPIC_API_KEY"):
+        v = os.environ.get(name, "")
+        if v.startswith(want) and (want == "sk-ant-" or not v.startswith("sk-ant-")):
+            return v
+    return os.environ.get(preferred)
 
 
 def make_llm(s: Settings, ledger: Ledger):
-    return MockLLM(s, ledger) if s.backend == "mock" else AnthropicLLM(s, ledger)
+    if s.backend == "mock":
+        return MockLLM(s, ledger)
+    return {"openai": OpenAILLM, "anthropic": AnthropicLLM}[CONFIG["provider"]](s, ledger)
 
 
 # ================================================================ 코퍼스 · 검색 · 도구
@@ -409,23 +516,47 @@ SINGLE_SYSTEM = (RESEARCHER_SYSTEM.split("\n\n", 1)[1]
 SINGLE_SYSTEM = "너는 딥리서치 에이전트다. 장문 보고서 전체를 혼자 조사하고 쓴다.\n\n" + SINGLE_SYSTEM
 
 
+def _trim_old_results(msgs: list, keep_last: int = 6) -> int:
+    """컨텍스트 초과 시 응급 처치: 오래된 도구 결과 본문을 비운다(마지막 keep_last개는 남김). 비운 개수를 돌려준다."""
+    slots = []
+    for m in msgs:
+        if m.get("role") == "tool":
+            slots.append((m, "content"))
+        elif m.get("role") == "user" and isinstance(m.get("content"), list):
+            slots += [(b, "content") for b in m["content"] if isinstance(b, dict) and b.get("type") == "tool_result"]
+    cut = slots[:-keep_last] if len(slots) > keep_last else []
+    for d, k in cut:
+        d[k] = "[컨텍스트 한도로 생략됨 — 이미 읽은 내용]"
+    return len(cut)
+
+
 def agent_loop(llm, system: str, prompt: str, tb: Toolbox, max_turns: int, role: str, max_tokens: int,
                meter: Meter, s: Settings) -> dict:
-    """도구 루프. 모든 에이전트에 같은 규칙:
+    """도구 루프 (공급자 무관 — llm은 Reply를 돌려주고 assistant_msg/result_msgs로 대화를 잇는다).
+    모든 에이전트에 같은 규칙:
     - 예산의 min_budget_use 미만으로 제출하면 최대 2번 되돌려 더 읽게 한다(대조군을 묶어 두지 않도록).
-    - 컨텍스트가 85%를 넘으면 더 읽지 못하게 막고 context_limited로 기록한다."""
+    - 컨텍스트가 85%를 넘으면 더 읽지 못하게 막고 context_limited로 기록한다.
+    - 그래도 컨텍스트를 넘으면 오래된 도구 결과를 비우고 한 번만 다시 시도해 제출을 받는다(trimmed로 기록)."""
     meter.see_sub(tb.agent_id, system + prompt)
-    msgs = [{"role": "user", "content": prompt}]
-    turns = nudges = 0
+    msgs: list = [{"role": "user", "content": prompt}]
+    turns = nudges = trimmed = 0
     told = limited = False
+    rep = None
     while True:
-        resp = llm.chat(role=role, system=system, messages=msgs, tools=TOOLS, max_tokens=max_tokens)
-        msgs.append({"role": "assistant", "content": resp.content})
-        limited = limited or resp.n_input > 0.85 * s.context_tokens
-        if resp.stop_reason == "pause_turn":
+        try:
+            rep = llm.chat(role=role, system=system, messages=msgs, tools=TOOLS, max_tokens=max_tokens)
+        except ContextFull:
+            limited = True
+            if trimmed:
+                break
+            trimmed = _trim_old_results(msgs)
+            msgs.append({"role": "user", "content": "컨텍스트 한도에 닿았다. 더 읽지 말고 지금 submit_section 하라."})
             continue
-        uses = [b for b in resp.content if getattr(b, "type", None) == "tool_use"]
-        if not uses:
+        msgs.append(llm.assistant_msg(rep))
+        limited = limited or rep.n_input > 0.85 * s.context_tokens
+        if rep.stop == "pause":
+            continue
+        if not rep.calls:
             if tb.submitted or told:
                 break
             msgs.append({"role": "user", "content": "submit_section 도구로 원고를 제출해 작업을 끝내라."})
@@ -433,29 +564,28 @@ def agent_loop(llm, system: str, prompt: str, tb: Toolbox, max_turns: int, role:
             continue
         turns += 1
         results = []
-        for u in uses:
-            a = dict(u.input)
-            if u.name == "read_doc" and limited:
+        for c in rep.calls:
+            if c.name == "read_doc" and limited:
                 out, err = "컨텍스트 한도에 가까워 더 읽을 수 없다. submit_section 하라.", True
-            elif (u.name == "submit_section" and nudges < 2 and not limited and turns < max_turns
+            elif (c.name == "submit_section" and nudges < 2 and not limited and turns < max_turns
                   and tb.used < s.min_budget_use * tb.budget and tb.remaining() > CHUNK):
                 nudges += 1
                 out, err = (f"아직 읽기 예산의 {tb.used / tb.budget:.0%}만 썼다(남은 {tb.remaining():,}자). "
                             "관련 자료를 더 읽고 보강한 뒤 다시 제출하라."), True
             else:
-                out, err = tb.run(u.name, a)
-            if u.name != "submit_section" and turns >= max_turns - 1:
+                out, err = tb.run(c.name, c.input)
+            if c.name != "submit_section" and turns >= max_turns - 1:
                 out += f"\n\n[알림] 도구 라운드 {turns}/{max_turns}. 다음 응답에서 submit_section을 호출하라."
             meter.see_sub(tb.agent_id, out)
-            results.append({"type": "tool_result", "tool_use_id": u.id, "content": out, **({"is_error": True} if err else {})})
-        msgs.append({"role": "user", "content": results})
+            results.append((c.id, out, err))
+        msgs += llm.result_msgs(results)
         if tb.submitted or turns > max_turns:
             break
-    sub = tb.submitted or {"markdown": text_of(resp) or "(원고 미제출)", "sufficient": False,
+    sub = tb.submitted or {"markdown": (rep.text if rep else "") or "(원고 미제출)", "sufficient": False,
                            "gaps": ["턴 한도 내 미제출"], "unsubmitted": True}
     return {"turns": turns, "read_log": tb.read_log, "read_ids": tb.read_ids, "search_log": tb.search_log,
             "budget": tb.budget, "used": tb.used, "submitted": sub, "nudges": nudges, "context_limited": limited,
-            "chars_seen": meter.sub.get(tb.agent_id, 0)}
+            "context_trimmed": trimmed, "chars_seen": meter.sub.get(tb.agent_id, 0)}
 
 
 # ================================================================ ① 기획
@@ -513,9 +643,9 @@ def plan_sections(llm, corpus: Corpus, q: dict, s: Settings, meter: Meter) -> tu
     info = {"attempts": 0, "problems": []}
     for _ in range(2):  # 지어낸 배정이 있으면 짚어서 한 번 되묻는다
         info["attempts"] += 1
-        resp = llm.chat(role="coord:plan", system="너는 딥리서치 코디네이터다. 목차를 짜고 분업을 배정한다.",
+        rep = llm.chat(role="coord:plan", system="너는 딥리서치 코디네이터다. 목차를 짜고 분업을 배정한다.",
                         messages=msgs, json_schema=PLAN_SCHEMA, max_tokens=16000)
-        secs = json.loads(text_of(resp))["sections"][: s.n_sections]
+        secs = json.loads(rep.text)["sections"][: s.n_sections]
         for k, sec in enumerate(secs):
             sec["id"] = f"s{k + 1}"
             sec["seed_doc_ids_raw"] = list(sec["seed_doc_ids"])
@@ -526,7 +656,7 @@ def plan_sections(llm, corpus: Corpus, q: dict, s: Settings, meter: Meter) -> tu
             break
         fix = "다음 배정이 목록·명단에 없는 것을 가리킨다. 목록의 id와 명단의 역할만 써서 다시 답하라:\n" + "\n".join(problems)
         meter.see_coord("지시·질문", fix)
-        msgs += [{"role": "assistant", "content": resp.content}, {"role": "user", "content": fix}]
+        msgs += [llm.assistant_msg(rep), {"role": "user", "content": fix}]
     info["invalid_final"] = len(validate_plan(corpus, secs, set(roster)))
     for sec in secs:
         if sec["role"] not in roster:
@@ -607,8 +737,8 @@ def synthesize(llm, q: dict, secs: list[dict], drafts: dict[str, str], s: Settin
                  "지도)과 '### 결론'(절들을 가로지르는 공통 패턴과 대안 비교)만 쓴다. 원고에 있는 [D:id] 인용만 재사용하고 새 사실을 만들지 마라.\n\n")
         meter.see_coord("지시·질문", instr)
         meter.see_coord("원고", body)
-        bridge = text_of(llm.chat(role="coord:synth", system="너는 장문 보고서의 편집자다.",
-                                  messages=[{"role": "user", "content": instr + body}], max_tokens=16000))
+        bridge = (llm.chat(role="coord:synth", system="너는 장문 보고서의 편집자다.",
+                                  messages=[{"role": "user", "content": instr + body}], max_tokens=16000)).text
         info["new_cites"] = sorted(set(CITE.findall(bridge)) - set(CITE.findall(body)))
         intro, _, concl = bridge.partition("### 결론")
         report = (f"# {q['title']}\n\n> {q['question']}\n\n## 서론\n\n{intro.replace('### 서론', '').strip()}\n\n"
@@ -802,12 +932,10 @@ def cli_settings(ap: argparse.ArgumentParser | None = None) -> tuple[Settings, a
     ap.add_argument("--question", type=int, default=3, help="data/questions.json의 id")
     ap.add_argument("--ask", default="", help="직접 입력하는 질문")
     ap.add_argument("--arm", default="full", choices=list(ARMS))
-    ap.add_argument("--backend", default="anthropic", choices=["anthropic", "mock"])
+    ap.add_argument("--backend", default="api", choices=["api", "mock"])
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--no-fallbacks", action="store_true")
     a = ap.parse_args()
-    s = Settings(question_id=a.question, question=a.ask, backend=a.backend, seed=a.seed,
-                 fallbacks=not a.no_fallbacks).replace(**ARMS[a.arm])
+    s = Settings(question_id=a.question, question=a.ask, backend=a.backend, seed=a.seed).replace(**ARMS[a.arm])
     return s, a
 
 

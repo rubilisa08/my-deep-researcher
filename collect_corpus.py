@@ -5,7 +5,7 @@
 
   python collect_corpus.py                 # 수집 (중단해도 .kowiki_cache/에서 이어 받음)
   python collect_corpus.py --stats         # 통계만 (data/corpus_stats.json)
-  python collect_corpus.py --stats --count # count_tokens API로 실제 토큰 수까지 (키 필요)
+  python collect_corpus.py --stats --count # 실제 토큰 수 (openai: tiktoken 로컬 계산, anthropic: count_tokens API)
 """
 from __future__ import annotations
 
@@ -154,7 +154,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="data/corpus.json")
     ap.add_argument("--stats", action="store_true", help="수집하지 않고 통계만")
-    ap.add_argument("--count", action="store_true", help="--stats와 함께: count_tokens로 실제 토큰 수")
+    ap.add_argument("--count", action="store_true", help="--stats와 함께: 실제 토큰 수")
     ap.add_argument("--target-chars", type=int, default=TARGET_CHARS,
                     help="총 글자 수가 이만큼 차면 멈춘다 (기본: 한국어 0.5토큰/자로 잡아도 1M 토큰을 넘는 양)")
     ap.add_argument("--hop1-max", type=int, default=HOP1_MAX)
@@ -256,9 +256,10 @@ def main():
     if len(docs) < TARGET_DOCS:
         print(f"경고: 목표 {TARGET_DOCS}건 미만. SEEDS를 늘리거나 HOP 상한을 올리세요.", file=sys.stderr)
 
-MODEL = "claude-opus-5-5"
-CONTEXT = 1_000_000          # claude-opus-5-5 컨텍스트 윈도우
-PER_RESEARCHER = 120_000     # 리서처 1명의 기본 읽기 예산(자, config.json의 section_budget_chars)
+_CFG = json.loads((Path(__file__).parent / "config.json").read_text(encoding="utf-8"))
+MODEL = _CFG["model"]
+CONTEXT = _CFG["context_tokens"]                 # config.json의 모델 컨텍스트 윈도우
+PER_RESEARCHER = _CFG["section_budget_chars"]    # 리서처 1명의 기본 읽기 예산(자)
 
 
 def corpus_stats(path: str, count: bool = False):
@@ -283,15 +284,18 @@ def corpus_stats(path: str, count: bool = False):
         "share_one_researcher_can_read": round(PER_RESEARCHER / chars, 3),
     }
     if count:
-        from anthropic import Anthropic
-        client = Anthropic()
-        base = client.messages.count_tokens(model=MODEL, messages=[{"role": "user", "content": "."}]).input_tokens
-        total = 0
-        for i, (t, text) in enumerate(docs.items()):
-            n = client.messages.count_tokens(model=MODEL, messages=[{"role": "user", "content": text}]).input_tokens
-            total += n - base
-            print(f"\r  토큰 세는 중 {i + 1}/{len(docs)}", end="", file=sys.stderr)
-        print(file=sys.stderr)
+        if _CFG["provider"] == "openai":  # OpenAI 토크나이저로 로컬에서 센다 (API 호출·비용 없음)
+            import tiktoken
+            enc = tiktoken.get_encoding("o200k_base")
+            total = sum(len(enc.encode(t)) for t in docs.values())
+            st["tokenizer"] = "tiktoken o200k_base"
+        else:  # Claude: count_tokens API (무료, 키 필요)
+            from anthropic import Anthropic
+            client = Anthropic()
+            base = client.messages.count_tokens(model=MODEL, messages=[{"role": "user", "content": "."}]).input_tokens
+            total = sum(client.messages.count_tokens(model=MODEL, messages=[{"role": "user", "content": t}]).input_tokens
+                        - base for t in docs.values())
+            st["tokenizer"] = f"count_tokens {MODEL}"
         st["counted_tokens"] = total
         st["tokens_per_char"] = round(total / chars, 3)
     out = Path(path).with_name("corpus_stats.json")
@@ -300,7 +304,7 @@ def corpus_stats(path: str, count: bool = False):
     print(f"문서 {st['docs']}개 · 총 {chars:,}자 · 링크 {st['link_edges']}개(문서당 중앙값 {st['links_per_doc_median']})")
     if "counted_tokens" in st:
         tok = st["counted_tokens"]
-        print(f"실제 토큰(count_tokens, {MODEL}): {tok:,} ({st['tokens_per_char']} 토큰/자)")
+        print(f"실제 토큰({st['tokenizer']}): {tok:,} ({st['tokens_per_char']} 토큰/자)")
         print(f"컨텍스트 윈도우 {CONTEXT:,} 대비 {tok / CONTEXT:.2f}배 → {'넘는다' if tok > CONTEXT else '넘지 않는다'}")
     else:
         lo, hi = st["est_tokens_low"], st["est_tokens_high"]

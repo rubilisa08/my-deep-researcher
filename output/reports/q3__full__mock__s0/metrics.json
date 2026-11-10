@@ -75,12 +75,13 @@
  ],
  "tokens": {
   "calls": 44,
-  "input_tokens": 268079,
+  "input_tokens": 265335,
+  "cached_input_tokens": 0,
   "output_tokens": 8800,
   "served_models": [
-   "claude-opus-5-5"
+   "gpt-5.4-mini"
   ]
  },
- "elapsed_s": 0.1,
+ "elapsed_s": 0.0,
  "alarms_ok": true
 }

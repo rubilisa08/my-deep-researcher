@@ -46,7 +46,7 @@ def main():
     ap.add_argument("--question", type=int, default=3)
     ap.add_argument("--arms", default="full,no_peer,single")
     ap.add_argument("--trials", type=int, default=2)
-    ap.add_argument("--backend", default="anthropic", choices=["anthropic", "mock"])
+    ap.add_argument("--backend", default="api", choices=["api", "mock"])
     a = ap.parse_args()
     corpus = Corpus()
     arms = a.arms.split(",")

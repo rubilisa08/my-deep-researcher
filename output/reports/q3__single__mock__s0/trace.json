@@ -47,6 +47,7 @@
    },
    "nudges": 2,
    "context_limited": false,
+   "context_trimmed": 0,
    "chars_seen": 19005,
    "agent_id": "single",
    "section": "all",

@@ -238,7 +238,7 @@ def compute(r: dict, corpus: Corpus) -> dict:
         "coordinator_raw_leak": iso["coordinator_raw_leak"],
         "synth_new_cites": len(t.get("synth", {}).get("new_cites", [])),
         "unsubmitted": sum(1 for a in t["agents"] if a["submitted"].get("unsubmitted")),
-        "model_mismatch": sum(1 for x in r["ledger"]["calls"] if x["served_model"] != x["requested_model"]),
+        "model_mismatch": sum(1 for x in r["ledger"]["calls"] if not str(x["served_model"]).startswith(x["requested_model"])),
         "switch_audit": len(audit_switches(r)),
     }
 

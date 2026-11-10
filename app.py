@@ -1,7 +1,7 @@
 """딥리서처 데모 — streamlit run app.py
 
 보고서만이 아니라 '절마다 누가 무엇을 읽고 무엇을 썼는지'를 보여 준다.
-API 키는 환경변수 ANTHROPIC_API_KEY나 .env로만 받는다(저장소에 올리지 않는다).
+API 키는 환경변수 OPENAI_API_KEY(또는 ANTHROPIC_API_KEY)나 .env로만 받는다(저장소에 올리지 않는다).
 """
 from __future__ import annotations
 
@@ -58,9 +58,9 @@ with st.sidebar:
     else:
         ask = st.text_area("질문", placeholder="코퍼스(인공지능·기계 학습 위키 문서)로 답할 수 있는 질문")
     arm = st.selectbox("실험 팔", list(ARMS), help="full=기본 · 나머지=장치 하나 끈 것 · single=단일 에이전트 대조군")
-    has_key = bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
-    backend = st.selectbox("백엔드", ["anthropic", "mock"] if has_key else ["mock", "anthropic"],
-                           help="mock = API 없이 배선만 확인하는 가짜 응답")
+    has_key = bool(os.environ.get("OPENAI_API_KEY") or os.environ.get("ANTHROPIC_API_KEY"))
+    backend = st.selectbox("백엔드", ["api", "mock"] if has_key else ["mock", "api"],
+                           help=f"api = {CONFIG['provider']} {CONFIG['model']} · mock = API 없이 배선만 확인하는 가짜 응답")
     seed = st.number_input("시행 번호", 0, 99, 0)
     if st.button("실행", type="primary", width="stretch"):
         if mode == "직접 입력" and not ask.strip():
