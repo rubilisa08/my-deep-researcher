@@ -161,70 +161,76 @@ class Reply:
 
 
 class OpenAILLM:
-    """OpenAI Chat Completions. 도구 호출(function calling)과 JSON 스키마 구조화 출력을 쓴다."""
+    """OpenAI Responses API. 도구 호출(function calling) + 추론 강도(reasoning.effort)를 함께 쓸 수 있다.
+    (gpt-5.4-mini 등은 Chat Completions에서 도구와 추론 강도를 같이 쓰지 못한다.)
+    대화는 입력 항목 목록으로 잇는다: 응답의 출력 항목(추론·함수 호출)을 그대로 되붙이고, 도구 결과는 function_call_output으로."""
 
     def __init__(self, s: Settings, ledger: Ledger):
         import openai
         self.openai = openai
         self.client = openai.OpenAI(api_key=_api_key("OPENAI_API_KEY"), max_retries=4)
         self.s, self.ledger = s, ledger
-        self._effort_ok = True
 
     @staticmethod
     def _tools(tools):
-        return [{"type": "function", "function": {"name": t["name"], "description": t["description"],
-                                                  "parameters": t["input_schema"]}} for t in tools]
+        return [{"type": "function", "name": t["name"], "description": t["description"],
+                 "parameters": t["input_schema"], "strict": False} for t in tools]
 
     def chat(self, *, role, system, messages, tools=None, max_tokens=16000, json_schema=None) -> Reply:
-        kw = dict(model=self.s.model, messages=[{"role": "system", "content": system}, *messages],
-                  max_completion_tokens=max_tokens)
-        if self._effort_ok and self.s.effort:
-            kw["reasoning_effort"] = self.s.effort
+        kw = dict(model=self.s.model, instructions=system, input=messages, max_output_tokens=max_tokens)
+        if self.s.effort:
+            kw["reasoning"] = {"effort": self.s.effort}
         if tools:
             kw["tools"] = self._tools(tools)
         if json_schema:
-            kw["response_format"] = {"type": "json_schema",
-                                     "json_schema": {"name": "output", "schema": json_schema, "strict": True}}
+            kw["text"] = {"format": {"type": "json_schema", "name": "output", "schema": json_schema, "strict": True}}
         t0 = time.time()
         try:
-            r = self.client.chat.completions.create(**kw)
+            r = self.client.responses.create(**kw)
         except self.openai.BadRequestError as e:
             msg = str(e)
-            if "context_length" in msg or "maximum context" in msg:
+            if "context_length" in msg or "context window" in msg or "maximum context" in msg:
                 raise ContextFull(msg[:200]) from e
-            if "reasoning_effort" in msg and self._effort_ok:  # 추론 강도를 안 받는 모델이면 빼고 다시
-                self._effort_ok = False
-                return self.chat(role=role, system=system, messages=messages, tools=tools,
-                                 max_tokens=max_tokens, json_schema=json_schema)
             raise
-        ch, u = r.choices[0], r.usage
-        cached = getattr(getattr(u, "prompt_tokens_details", None), "cached_tokens", 0) or 0
-        self.ledger.add(role=role, requested_model=self.s.model, served_model=r.model, input_tokens=u.prompt_tokens,
-                        cached_tokens=cached, output_tokens=u.completion_tokens, stop_reason=ch.finish_reason,
+        u = r.usage
+        cached = getattr(getattr(u, "input_tokens_details", None), "cached_tokens", 0) or 0
+        stop_raw = r.status if r.status != "incomplete" else f"incomplete:{getattr(r.incomplete_details, 'reason', '')}"
+        self.ledger.add(role=role, requested_model=self.s.model, served_model=r.model, input_tokens=u.input_tokens,
+                        cached_tokens=cached, output_tokens=u.output_tokens, stop_reason=stop_raw,
                         seconds=round(time.time() - t0, 1))
-        m = ch.message
-        if getattr(m, "refusal", None):
-            raise Blocked(f"{role}: refusal")
-        calls = []
-        for tc in m.tool_calls or []:
-            try:
-                args = json.loads(tc.function.arguments or "{}")
-            except json.JSONDecodeError:
-                args = {"_invalid_json": tc.function.arguments}
-            calls.append(Call(tc.id, tc.function.name, args))
-        stop = {"tool_calls": "tool", "length": "length"}.get(ch.finish_reason, "end")
-        return Reply(m.content or "", calls, stop, u.prompt_tokens, m)
+        text, calls, items = [], [], []
+        for it in r.output:
+            items.append(it.model_dump(exclude_none=True))
+            if it.type == "message":
+                for c in it.content:
+                    if c.type == "output_text":
+                        text.append(c.text)
+                    elif c.type == "refusal":
+                        raise Blocked(f"{role}: refusal")
+            elif it.type == "function_call":
+                try:
+                    args = json.loads(it.arguments or "{}")
+                except json.JSONDecodeError:
+                    args = {"_invalid_json": it.arguments}
+                calls.append(Call(it.call_id, it.name, args))
+        if calls:
+            stop = "tool"
+        elif r.status == "incomplete":
+            stop = "length"
+        else:
+            stop = "end"
+        return Reply("".join(text), calls, stop, u.input_tokens, items)
 
-    def assistant_msg(self, rep: Reply) -> dict:
-        d: dict = {"role": "assistant", "content": rep.text or None}
-        if rep.calls:
-            d["tool_calls"] = [{"id": c.id, "type": "function",
-                                "function": {"name": c.name, "arguments": json.dumps(c.input, ensure_ascii=False)}}
-                               for c in rep.calls]
-        return d
+    def assistant_msg(self, rep: Reply) -> list[dict]:
+        # 응답 출력 항목(추론 항목 포함)을 그대로 되붙인다 — 추론을 이어 가려면 필요하다
+        out = []
+        for it in rep.raw:
+            it = {k: v for k, v in it.items() if k not in ("status",) or it.get("type") == "message"}
+            out.append(it)
+        return out
 
     def result_msgs(self, results: list[tuple[str, str, bool]]) -> list[dict]:
-        return [{"role": "tool", "tool_call_id": i, "content": ("[오류] " if err else "") + out}
+        return [{"type": "function_call_output", "call_id": i, "output": ("[오류] " if err else "") + out}
                 for i, out, err in results]
 
 
@@ -522,6 +528,8 @@ def _trim_old_results(msgs: list, keep_last: int = 6) -> int:
     for m in msgs:
         if m.get("role") == "tool":
             slots.append((m, "content"))
+        elif m.get("type") == "function_call_output":
+            slots.append((m, "output"))
         elif m.get("role") == "user" and isinstance(m.get("content"), list):
             slots += [(b, "content") for b in m["content"] if isinstance(b, dict) and b.get("type") == "tool_result"]
     cut = slots[:-keep_last] if len(slots) > keep_last else []
@@ -552,7 +560,8 @@ def agent_loop(llm, system: str, prompt: str, tb: Toolbox, max_turns: int, role:
             trimmed = _trim_old_results(msgs)
             msgs.append({"role": "user", "content": "컨텍스트 한도에 닿았다. 더 읽지 말고 지금 submit_section 하라."})
             continue
-        msgs.append(llm.assistant_msg(rep))
+        am = llm.assistant_msg(rep)
+        msgs += am if isinstance(am, list) else [am]
         limited = limited or rep.n_input > 0.85 * s.context_tokens
         if rep.stop == "pause":
             continue
@@ -656,7 +665,8 @@ def plan_sections(llm, corpus: Corpus, q: dict, s: Settings, meter: Meter) -> tu
             break
         fix = "다음 배정이 목록·명단에 없는 것을 가리킨다. 목록의 id와 명단의 역할만 써서 다시 답하라:\n" + "\n".join(problems)
         meter.see_coord("지시·질문", fix)
-        msgs += [llm.assistant_msg(rep), {"role": "user", "content": fix}]
+        am = llm.assistant_msg(rep)
+        msgs += (am if isinstance(am, list) else [am]) + [{"role": "user", "content": fix}]
     info["invalid_final"] = len(validate_plan(corpus, secs, set(roster)))
     for sec in secs:
         if sec["role"] not in roster:
